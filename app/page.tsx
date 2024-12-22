@@ -1,44 +1,49 @@
-// app/page.tsx
-'use client'; // Add this at the top of the file
+'use client';
 
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import './globals.css'; // Import global CSS or Tailwind styles
+import './globals.css';
+
+export const runtime = 'edge';
 
 export default function Home() {
-  const titleRef = useRef(null);
-  const descriptionRef = useRef(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    gsap.fromTo(
-      titleRef.current,
-      { opacity: 0, y: -50 },
-      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: -50 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
+      );
 
-    gsap.fromTo(
-      descriptionRef.current,
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.5 }
-    );
+      gsap.fromTo(
+        descriptionRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.5 }
+      );
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-      <h1
-        ref={titleRef}
-        className="text-4xl font-bold text-gray-800 mb-4"
-      >
-        Welcome to the Cutting-Edge Next.js App
-      </h1>
-      <p
-        ref={descriptionRef}
-        className="text-lg text-gray-600"
-      >
-        This page uses Next.js 13+ App Router, Tailwind CSS, and GSAP animations.
-      </p>
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-2xl text-center">
+        <h1
+          ref={titleRef}
+          className="text-5xl font-extrabold text-gray-800 mb-4"
+        >
+          Welcome to the Next Generation
+        </h1>
+        <p
+          ref={descriptionRef}
+          className="text-xl text-gray-600"
+        >
+          Experience the cutting edge with Next.js 13+ App Router, Tailwind CSS, GSAP animations, and Edge Runtime.
+        </p>
+      </div>
     </div>
   );
 }
-
-export const runtime = 'edge';
