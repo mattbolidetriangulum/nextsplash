@@ -8,42 +8,34 @@ export const runtime = 'edge';
 
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const descriptionRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Animate the text
       gsap.fromTo(
         titleRef.current,
-        { opacity: 0, y: -50 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
-      );
-
-      gsap.fromTo(
-        descriptionRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.5 }
+        { opacity: 0, y: 100, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.5,
+          ease: 'power4.out',
+        }
       );
     });
 
-    return () => ctx.revert();
+    return () => ctx.revert(); // Clean up GSAP context
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50">
-      <div className="mt-8 max-w-2xl w-full px-4">
-        <h1
-          ref={titleRef}
-          className="text-5xl font-extrabold text-center text-gray-800 mb-4"
-        >
-          Welcome to the Next Generation
-        </h1>
-        <p
-          ref={descriptionRef}
-          className="text-xl text-center text-gray-600"
-        >
-          Experience the cutting edge with Next.js 13+ App Router, Tailwind CSS, GSAP animations, and Edge Runtime.
-        </p>
-      </div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <h1
+        ref={titleRef}
+        className="text-6xl font-extrabold text-gray-800"
+      >
+        Welcome to the Next Generation
+      </h1>
     </div>
   );
 }
