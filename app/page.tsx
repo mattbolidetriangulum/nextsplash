@@ -14,28 +14,27 @@ export default function Home() {
       titleContainerRef.current?.querySelectorAll('.char') || []
     );
 
-    // Apply the "jump out and fade" animation
-    anime.timeline({ loop: true }) // Infinite loop
+    // Apply Animation 4: Jump out and fade
+    anime.timeline({ loop: true })
       .add({
         targets: chars,
-        opacity: [0, 1], // Fade in
-        scale: [4, 1], // Jump out then scale to normal
-        translateZ: 0, // Ensure no perspective distortion
-        easing: 'easeOutExpo', // Smooth easing
-        duration: 800, // Duration for each character
-        delay: anime.stagger(100), // Stagger the animation for each character
+        opacity: [0, 1],
+        scale: [4, 1],
+        translateZ: 0,
+        easing: 'easeOutExpo',
+        duration: 800,
+        delay: anime.stagger(100),
       })
       .add({
         targets: chars,
-        opacity: [1, 0], // Fade out
-        scale: [1, 0], // Shrink to nothing
+        opacity: [1, 0],
+        scale: [1, 0],
         easing: 'easeInExpo',
         duration: 800,
-        delay: anime.stagger(100), // Stagger the fade out as well
+        delay: anime.stagger(100),
       });
   }, []);
 
-  // Render the text as individual characters
   const text = 'send nudes';
   const characters = text.split('').map((char, index) => (
     <span key={index} className="char inline-block">
@@ -47,7 +46,12 @@ export default function Home() {
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div
         ref={titleContainerRef}
-        className="text-6xl font-extrabold text-gray-800 uppercase"
+        className="uppercase font-extrabold text-gray-800 text-center"
+        style={{
+          fontSize: '8vw', // Dynamic font size
+          lineHeight: '1', // Prevent extra spacing
+          whiteSpace: 'pre-wrap', // Preserve spaces and line breaks
+        }}
       >
         {characters}
       </div>
