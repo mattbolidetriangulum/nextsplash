@@ -45,6 +45,8 @@ export default function Home() {
 
     const peaches: HTMLDivElement[] = []; // Define type explicitly
     const velocities: { x: number; y: number }[] = []; // Define velocity type
+    const addedVelocities: { x: number; y: number }[] = []; // To track momentum decay
+    const cursor = { x: 0, y: 0 }; // Mouse cursor position
 
     for (let i = 0; i < numberOfPeaches; i++) {
       const peach = document.createElement('div');
@@ -61,7 +63,17 @@ export default function Home() {
         x: (Math.random() - 0.5) * 10, // Random x velocity (-5 to 5)
         y: (Math.random() - 0.5) * 10, // Random y velocity (-5 to 5)
       });
+
+      // Initialize added velocity for momentum decay
+      addedVelocities.push({ x: 0, y: 0 });
     }
+
+    // Handle mouse movement
+    const handleMouseMove = (e: MouseEvent) => {
+      cursor.x = e.clientX;
+      cursor.y = e.clientY;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
 
     const bouncePeaches = () => {
       peaches.forEach((peach, index) => {
@@ -70,16 +82,35 @@ export default function Home() {
         let y = parseFloat(peach.style.top);
 
         // Update position based on velocity
-        x += velocities[index].x;
-        y += velocities[index].y;
+        x += velocities[index].x + addedVelocities[index].x;
+        y += velocities[index].y + addedVelocities[index].y;
 
         // Bounce off edges
         if (x <= 0 || x + rect.width >= window.innerWidth) {
           velocities[index].x *= -1; // Reverse x direction
+          addedVelocities[index].x = 0; // Reset added momentum
         }
         if (y <= 0 || y + rect.height >= window.innerHeight) {
           velocities[index].y *= -1; // Reverse y direction
+          addedVelocities[index].y = 0; // Reset added momentum
         }
+
+        // Calculate distance from cursor
+        const dx = cursor.x - (x + rect.width / 2);
+        const dy = cursor.y - (y + rect.height / 2);
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // If the peach is within a certain radius of the cursor, push it away
+        const avoidanceRadius = 100; // Radius around the cursor to avoid
+        if (distance < avoidanceRadius) {
+          const angle = Math.atan2(dy, dx);
+          addedVelocities[index].x -= Math.cos(angle) * 5; // Push peach away in x-direction
+          addedVelocities[index].y -= Math.sin(angle) * 5; // Push peach away in y-direction
+        }
+
+        // Decay added velocity over time
+        addedVelocities[index].x *= 0.9; // Gradual reduction of momentum
+        addedVelocities[index].y *= 0.9;
 
         // Update the peach's position
         peach.style.left = `${x}px`;
@@ -94,6 +125,7 @@ export default function Home() {
 
     // Cleanup on unmount
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
       document.body.removeChild(emojiContainer);
     };
   }, []);
