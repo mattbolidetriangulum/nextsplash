@@ -13,24 +13,24 @@ export default function Home() {
       titleContainerRef.current?.querySelectorAll('.char') || []
     );
 
-    // Reapply Text Animation
-    anime.timeline({ loop: true }) // Infinite loop
+    // Apply Text Animation
+    anime.timeline({ loop: true })
       .add({
         targets: chars,
-        opacity: [0, 1], // Fade in
-        scale: [4, 1], // Scale down from larger size
-        translateZ: 0, // Ensure no perspective distortion
-        easing: 'easeOutExpo', // Smooth easing
-        duration: 800, // Duration for each character
-        delay: anime.stagger(100), // Staggered animation for each character
+        opacity: [0, 1],
+        scale: [4, 1],
+        translateZ: 0,
+        easing: 'easeOutExpo',
+        duration: 800,
+        delay: anime.stagger(100),
       })
       .add({
         targets: chars,
-        opacity: [1, 0], // Fade out
-        scale: [1, 0], // Scale down to disappear
+        opacity: [1, 0],
+        scale: [1, 0],
         easing: 'easeInExpo',
         duration: 800,
-        delay: anime.stagger(100), // Staggered animation for each character
+        delay: anime.stagger(100),
       });
 
     // Create Bouncing Peaches
@@ -43,9 +43,9 @@ export default function Home() {
     const peachesPerWidth = Math.floor(window.innerWidth / 100); // Additional peaches per 100px of width
     const numberOfPeaches = basePeaches + peachesPerWidth;
 
-    const peaches: HTMLDivElement[] = []; // Define type explicitly
-    const velocities: { x: number; y: number }[] = []; // Define velocity type
-    const addedVelocities: { x: number; y: number }[] = []; // To track momentum decay
+    const peaches: HTMLDivElement[] = [];
+    const velocities: { x: number; y: number }[] = [];
+    const addedVelocities: { x: number; y: number }[] = [];
     const cursor = { x: 0, y: 0 }; // Mouse cursor position
 
     for (let i = 0; i < numberOfPeaches; i++) {
@@ -53,8 +53,8 @@ export default function Home() {
       peach.innerText = '🍑'; // Peach emoji
       peach.className = 'peach absolute';
       peach.style.fontSize = `${Math.random() * 2 + 1}rem`; // Random size
-      peach.style.left = `${Math.random() * window.innerWidth}px`; // Random initial horizontal position
-      peach.style.top = `${Math.random() * window.innerHeight}px`; // Random initial vertical position
+      peach.style.left = `${Math.random() * window.innerWidth}px`;
+      peach.style.top = `${Math.random() * window.innerHeight}px`;
       emojiContainer.appendChild(peach);
       peaches.push(peach);
 
@@ -64,11 +64,11 @@ export default function Home() {
         y: (Math.random() - 0.5) * 10, // Random y velocity (-5 to 5)
       });
 
-      // Initialize added velocity for momentum decay
+      // Momentum decay velocity
       addedVelocities.push({ x: 0, y: 0 });
     }
 
-    // Handle mouse movement
+    // Track mouse movement
     const handleMouseMove = (e: MouseEvent) => {
       cursor.x = e.clientX;
       cursor.y = e.clientY;
@@ -87,12 +87,12 @@ export default function Home() {
 
         // Bounce off edges
         if (x <= 0 || x + rect.width >= window.innerWidth) {
-          velocities[index].x *= -1; // Reverse x direction
-          addedVelocities[index].x = 0; // Reset added momentum
+          velocities[index].x *= -1;
+          addedVelocities[index].x = 0;
         }
         if (y <= 0 || y + rect.height >= window.innerHeight) {
-          velocities[index].y *= -1; // Reverse y direction
-          addedVelocities[index].y = 0; // Reset added momentum
+          velocities[index].y *= -1;
+          addedVelocities[index].y = 0;
         }
 
         // Calculate distance from cursor
@@ -100,27 +100,27 @@ export default function Home() {
         const dy = cursor.y - (y + rect.height / 2);
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // If the peach is within a certain radius of the cursor, push it away
-        const avoidanceRadius = 100; // Radius around the cursor to avoid
+        // Push peaches away if within avoidance radius
+        const avoidanceRadius = 100;
         if (distance < avoidanceRadius) {
           const angle = Math.atan2(dy, dx);
-          addedVelocities[index].x -= Math.cos(angle) * 5; // Push peach away in x-direction
-          addedVelocities[index].y -= Math.sin(angle) * 5; // Push peach away in y-direction
+          addedVelocities[index].x -= Math.cos(angle) * 5;
+          addedVelocities[index].y -= Math.sin(angle) * 5;
         }
 
-        // Decay added velocity over time
-        addedVelocities[index].x *= 0.9; // Gradual reduction of momentum
+        // Decay momentum
+        addedVelocities[index].x *= 0.9;
         addedVelocities[index].y *= 0.9;
 
-        // Update the peach's position
+        // Update position
         peach.style.left = `${x}px`;
         peach.style.top = `${y}px`;
       });
 
-      requestAnimationFrame(bouncePeaches); // Repeat the animation
+      requestAnimationFrame(bouncePeaches);
     };
 
-    // Start the bouncing animation
+    // Start peach bouncing
     bouncePeaches();
 
     // Cleanup on unmount
@@ -146,7 +146,7 @@ export default function Home() {
   ));
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen animated-gradient no-select">
       <div
         ref={titleContainerRef}
         className="uppercase font-extrabold text-gray-800 text-center leading-none md:space-x-4 md:flex md:justify-center text-[24vw] md:text-[10vw]"
