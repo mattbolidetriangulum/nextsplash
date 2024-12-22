@@ -29,17 +29,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-2xl text-center">
+    <div className="flex flex-col items-center min-h-screen bg-gray-50">
+      <div className="mt-8 w-full max-w-2xl">
         <h1
           ref={titleRef}
-          className="text-5xl font-extrabold text-gray-800 mb-4"
+          className="text-5xl font-extrabold text-center text-gray-800 mb-4"
         >
           Welcome to the Next Generation
         </h1>
         <p
           ref={descriptionRef}
-          className="text-xl text-gray-600"
+          className="text-xl text-gray-600 text-center"
         >
           Experience the cutting edge with Next.js 13+ App Router, Tailwind CSS, GSAP animations, and Edge Runtime.
         </p>
