@@ -13,7 +13,7 @@ export default function Home() {
       titleContainerRef.current?.querySelectorAll('.char') || []
     );
 
-    // Apply Animation 4: Jump out and fade
+    // Reapply Text Animation
     anime.timeline({ loop: true }) // Infinite loop
       .add({
         targets: chars,
@@ -32,9 +32,72 @@ export default function Home() {
         duration: 800,
         delay: anime.stagger(100), // Staggered animation for each character
       });
+
+    // Create Bouncing Peaches
+    const emojiContainer = document.createElement('div');
+    emojiContainer.className = 'emoji-container fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden';
+    document.body.appendChild(emojiContainer);
+
+    // Dynamically adjust peach count based on screen size
+    const basePeaches = 20; // Minimum number of peaches
+    const peachesPerWidth = Math.floor(window.innerWidth / 100); // Additional peaches per 100px of width
+    const numberOfPeaches = basePeaches + peachesPerWidth;
+
+    const peaches: HTMLDivElement[] = []; // Define type explicitly
+    const velocities: { x: number; y: number }[] = []; // Define velocity type
+
+    for (let i = 0; i < numberOfPeaches; i++) {
+      const peach = document.createElement('div');
+      peach.innerText = '🍑'; // Peach emoji
+      peach.className = 'peach absolute';
+      peach.style.fontSize = `${Math.random() * 2 + 1}rem`; // Random size
+      peach.style.left = `${Math.random() * window.innerWidth}px`; // Random initial horizontal position
+      peach.style.top = `${Math.random() * window.innerHeight}px`; // Random initial vertical position
+      emojiContainer.appendChild(peach);
+      peaches.push(peach);
+
+      // Random velocity for each peach
+      velocities.push({
+        x: (Math.random() - 0.5) * 10, // Random x velocity (-5 to 5)
+        y: (Math.random() - 0.5) * 10, // Random y velocity (-5 to 5)
+      });
+    }
+
+    const bouncePeaches = () => {
+      peaches.forEach((peach, index) => {
+        const rect = peach.getBoundingClientRect();
+        let x = parseFloat(peach.style.left);
+        let y = parseFloat(peach.style.top);
+
+        // Update position based on velocity
+        x += velocities[index].x;
+        y += velocities[index].y;
+
+        // Bounce off edges
+        if (x <= 0 || x + rect.width >= window.innerWidth) {
+          velocities[index].x *= -1; // Reverse x direction
+        }
+        if (y <= 0 || y + rect.height >= window.innerHeight) {
+          velocities[index].y *= -1; // Reverse y direction
+        }
+
+        // Update the peach's position
+        peach.style.left = `${x}px`;
+        peach.style.top = `${y}px`;
+      });
+
+      requestAnimationFrame(bouncePeaches); // Repeat the animation
+    };
+
+    // Start the bouncing animation
+    bouncePeaches();
+
+    // Cleanup on unmount
+    return () => {
+      document.body.removeChild(emojiContainer);
+    };
   }, []);
 
-  // Render the text with responsive stacking
   const textSend = 'SEND';
   const textNudes = 'NUDES';
 
@@ -59,7 +122,6 @@ export default function Home() {
         <span className="block md:inline">{charactersSend}</span>
         <span className="block md:inline">{charactersNudes}</span>
       </div>
-
     </div>
   );
 }
