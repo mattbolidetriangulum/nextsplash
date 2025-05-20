@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import anime from 'animejs';
+import { Analytics } from "@vercel/analytics/next"
 
 export const runtime = 'edge';
 
