@@ -1,78 +1,52 @@
-# 🍑 WELCOME TO THE PEACH ZONE 🍑
+# 🍑 NEXTSPLASH
 
-You clicked the GitHub link.  
-You weren’t _meant_ to. But here you are.
+Welcome, digital traveller. You clicked the GitHub link.  
+You’ve seen the message. You’ve seen the peaches.  
+Now you’re here. Congratulations — you’ve found the source code to... whatever _that_ was.
 
-You've survived the **shouting**. You've dodged the **flying peaches**.  
-Now you're here, peeking behind the curtain, wondering:
+This is **nextsplash**, the high-effort, low-purpose splash page that proudly declares **SEND NUDES** while peach emojis float around like it's an interpretive dance about oversharing.
 
-> _What kind of unhinged person built this?_
+## 🛠️ Built With
 
-Well, friend — this is the code behind the page that simply screams **SEND NUDES** while a tropical fruit-based apocalypse unfolds around it.
+- [Next.js](https://nextjs.org/) – Because this needed routing, SSR, and the full power of React for reasons we won’t question.
+- [anime.js](https://animejs.com/) – To breathe chaotic life into the flying 🍑s.
+- Sass Modules – For styling with precision and only mild regret.
 
----
+## 💡 What's It For?
 
-## 🛠️ Tech Stack
+Honestly? Mostly vibes.  
+This is the kind of page you build when:
 
-- [Next.js](https://nextjs.org/) – Because this needed server-side rendering for… reasons.
-- [anime.js](https://animejs.com/) – Because vanilla JS wasn’t dramatic enough for flying 🍑s.
-- Sass/CSS Modules – Styled with care and mild regret.
+- You know how to deploy to Vercel.
+- You want your link-in-bio to raise eyebrows.
+- You have access to emoji and zero adult supervision.
 
----
+## ⚙️ How to Run It Locally
 
-## 🍑 What's Actually Happening?
-
-- A full-page message in all caps, emotionally charged and context-free.
-- A storm of animated peach emojis, powered by anime.js.
-- No links. No buttons. No explanation.
-- Just… vibes.
-
----
-
-## 🤔 But Why?
-
-Honestly? Not even sure anymore.  
-It started as a joke and ended up on the internet.  
-Like most terrible ideas.
-
----
-
-## 🧠 Philosophical Takeaway
-
-If a peach emoji flies across a browser and no one is around to see it,  
-**does it still send nudes?**
-
----
-
-## 🫣 For the Curious Few
-
-You're reading this, which means:
-
-- You clicked through my bio.
-- You found the hidden egg.
-- You’re one of _us_ now.
-
-Welcome to the **Code Cult of the Peach™**.
-
----
-
-## 📦 Run It Locally (Why tho?)
+You really want to run this locally?  
+Alright then, here you go:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/peach-zone.git
-cd peach-zone
+git clone https://github.com/mattbolidetriangulum/nextsplash.git
+cd nextsplash
 npm install
 npm run dev
 ```
 
-Then open your browser and make your therapist earn their money.
+Then open your browser and ask yourself what brought you to this point.
+
+## 🤫 Hidden Bonus
+
+If you’re reading this, you’re part of a very exclusive club:  
+**People Who Clicked the GitHub Link and Scrolled All the Way Down**™.
+
+We don’t have badges… but we do have peaches.
+
+## 🧼 License
+
+MIT. Remix it. Fork it. Build your own fruit-themed emotional web page.  
+Just, y’know, keep it peachy.
 
 ---
 
-## 📄 License
-
-MIT, because I’m not going to stop you from making your own emotionally unstable fruit zone.
-
----
-
-**Pro tip**: If you ever feel like life has no structure, just remember this was built with an entire React framework.
+**nextsplash**: minimal effort, maximum 🍑.
