@@ -31,17 +31,14 @@ Sort of.
 
 ---
 
-## ⚠️ Disclaimer
-
-This site was built using:
+## 🔧 Built With
 
 - Next.js
 - anime.js
 - Tailwind CSS
 - TypeScript
 
-Yes, it’s over-engineered.  
-No, I don’t regret it.
+Possibly the most serious stack ever used for something this unserious.
 
 ---
 
